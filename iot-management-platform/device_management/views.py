@@ -20,3 +20,9 @@ class DeviceDataViewSet(viewsets.ModelViewSet):
     queryset = DeviceData.objects.all()
     serializer_class = DeviceDataSerializer
     
+    def retrieve(self, request, *args, **kwargs):
+        device_id = kwargs.get('pk')
+        instance = DeviceData.objects.filter(device_id=device_id)
+        result = [self.get_serializer(i).data for i in instance]
+        return Response(result)
+    
