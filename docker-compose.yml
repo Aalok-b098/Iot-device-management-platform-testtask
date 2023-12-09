@@ -21,10 +21,9 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/app
-    command: "npm start"
-
-  
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm start
 
   db:
     container_name: db-dev-db
