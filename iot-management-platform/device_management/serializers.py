@@ -26,7 +26,7 @@ class DeviceDataSerializer(serializers.ModelSerializer):
     
     class Meta:
         model =  DeviceData
-        fields = ['device_id', 'timestamp', 'temperature','humidity','value', 'location','status', 'battery_level']
+        fields = ['id','device_id', 'timestamp', 'temperature','humidity','value', 'location','status', 'battery_level']
         
         
         
