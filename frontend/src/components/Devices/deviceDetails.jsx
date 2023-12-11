@@ -53,7 +53,7 @@ const DeviceDetails = () => {
 
   const fetchAllDeviceData = async () => {
     try {
-      const data = await getAllDeviceDataService();
+      const data = await getAllDeviceDataService(deviceId);
       setAllDeviceData(data)
     } catch (error) {
       console.error(error);

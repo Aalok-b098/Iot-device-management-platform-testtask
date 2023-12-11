@@ -28,10 +28,10 @@ export const getDeviceByIdService = async (Id) => {
   }
 };
 
-export const getAllDeviceDataService = async () => {
+export const getAllDeviceDataService = async (Id) => {
 
   try {
-    const response = await axios.get(`${API_BASE_URL}/device/device-data/`, {
+    const response = await axios.get(`${API_BASE_URL}/device/device-data/${Id}`, {
       headers: { Authorization: `Bearer ${cleanToken}` },
     });
     return response.data;
