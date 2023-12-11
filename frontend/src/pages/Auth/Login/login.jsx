@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginApiService } from "../../../services/api";
 
 const Login = () => {
+  const token = JSON.parse(localStorage.getItem("authToken"))
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (token) {
+      navigate("/")
+    }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,22 +23,21 @@ const Login = () => {
       toast.error("Username and Password are required");
       return;
     }
-  
+
     try {
       const response = await loginApiService(formData);
-      const user = response; 
-  
-      localStorage.setItem("user", JSON.stringify(user?.user)); 
-      localStorage.setItem("authToken", JSON.stringify(user?.access)); 
-      localStorage.setItem("refresh", JSON.stringify(user?.refresh)); 
+      const user = response;
+
+      localStorage.setItem("user", JSON.stringify(user?.user));
+      localStorage.setItem("authToken", JSON.stringify(user?.access));
+      localStorage.setItem("refresh", JSON.stringify(user?.refresh));
       toast.success("Login successful");
-      navigate("/");
+      window.location.href = "/"
     } catch (error) {
-      console.error("Login error:", error);
       toast.error(error.message || "Error logging in");
     }
   };
-  
+
 
   const handleChange = (e) => {
     setFormData({

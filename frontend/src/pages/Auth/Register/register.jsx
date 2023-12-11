@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { signupApiService } from "../../../services/api";
 
 const Register = () => {
+  const token = JSON.parse(localStorage.getItem("authToken"))
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
@@ -11,8 +12,14 @@ const Register = () => {
     first_name: "",
     last_name: "",
     email: "",
-    role: "operator", 
+    role: "operator",
   });
+
+  useEffect(() => {
+    if (token) {
+      navigate("/")
+    }
+  }, [])
 
   const handleChange = (e) => {
     setFormData({
@@ -25,15 +32,14 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-  
+
     try {
       const response = await signupApiService(formData);
-      const user = response; 
-      localStorage.setItem("user", JSON.stringify(user?.tokens)); 
+      const user = response;
+      localStorage.setItem("user", JSON.stringify(user?.tokens));
       toast.success("Signup successful");
       navigate("/login");
     } catch (error) {
-      console.error("Login error:", error);
       toast.error(error.message || "Error logging in");
     }
   };

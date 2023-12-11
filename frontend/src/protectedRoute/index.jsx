@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 const LogAuth = () => {
-  const isChecked = localStorage.getItem("authToken");
+  const isChecked = JSON.parse(localStorage.getItem("authToken"));
   const user = { loggedIn: isChecked ? true : false };
   return user.loggedIn;
 };

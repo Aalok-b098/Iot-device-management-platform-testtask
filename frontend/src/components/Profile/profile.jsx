@@ -40,10 +40,8 @@ const Profile = () => {
 
   const handleSaveClick = async (id) => {
     setIsEditing(false);
-    console.log(id,"id from user edit")
     try {
       await updateProfileService(id,userData);
-      console.log('Updated data:', userData);
     } catch (error) {
       console.error('Error updating profile:', error);
     }

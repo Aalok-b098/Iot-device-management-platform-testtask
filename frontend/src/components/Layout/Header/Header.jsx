@@ -1,28 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const userString = JSON.parse( localStorage.getItem( 'user' ) );
+  const userString = JSON.parse(localStorage.getItem('user'));
 
-
-  
-let {id,email,role,username,first_name,last_name} = userString;
-  // if (userString) {
-  //   const user = JSON.parse(userString);
-  //   username = user?.username;
-  //   email = user?.email;
-  // } 
-
-  // console.log(role,"role based")
+  let { email, role, username } = userString;
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
-      } 
+      }
     };
 
     document.addEventListener("click", handleClickOutside);
@@ -35,7 +26,7 @@ let {id,email,role,username,first_name,last_name} = userString;
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-  
+
   const handleClickProfile = () => {
     navigate("/profile");
     setIsOpen(false);
@@ -46,8 +37,6 @@ let {id,email,role,username,first_name,last_name} = userString;
     navigate("/login");
     localStorage.clear()
   };
-
-  
 
   return (
     <>
@@ -115,16 +104,16 @@ let {id,email,role,username,first_name,last_name} = userString;
                   >
                     Profile
                   </button>
-                    <button
-                       onClick={handleSignOut}
-                      type="submit"
-                      className="text-gray-700 block w-full px-4 py-2 text-left text-sm"
-                      role="menuitem"
-                      tabIndex="-1"
-                      id="menu-item-3"
-                    >
-                      Sign out
-                    </button>
+                  <button
+                    onClick={handleSignOut}
+                    type="submit"
+                    className="text-gray-700 block w-full px-4 py-2 text-left text-sm"
+                    role="menuitem"
+                    tabIndex="-1"
+                    id="menu-item-3"
+                  >
+                    Sign out
+                  </button>
                 </div>
               </div>
             )}
@@ -143,14 +132,14 @@ let {id,email,role,username,first_name,last_name} = userString;
                   Devices
                 </Link>
               </li>
-          {role=="manager" || "owner"   &&  <li className="mx-2 px-3">
-              <Link
-                to="/users"
-                className="text-gray-900 dark:text-white hover:underline"
-              >
-                Users
-              </Link>
-            </li>}
+              {(role === "manager" || role === "owner") && <li className="mx-2 px-3">
+                <Link
+                  to="/users"
+                  className="text-gray-900 dark:text-white hover:underline"
+                >
+                  Users
+                </Link>
+              </li>}
             </ul>
           </div>
         </div>
