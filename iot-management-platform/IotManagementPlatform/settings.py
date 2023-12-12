@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_yasg',
+    'channels',
     'corsheaders',
 ]
 
@@ -180,3 +181,6 @@ SWAGGER_SETTINGS = {
     "USE_SESSION_AUTH": False,
     "JSON_EDITOR": True,
 }
+
+
+ASGI_APPLICATION = 'IotManagementPlatform.asgi.application'
